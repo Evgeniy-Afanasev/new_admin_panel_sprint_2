@@ -21,7 +21,7 @@ class MoviesApiMixin:
         )
 
     def get_queryset(self):
-        qs = FilmWork.objects.prefetch_related(
+        qs = FilmWork.objects.values(
             'genres', 'persons'
         ).values(
             'id',
@@ -66,7 +66,5 @@ class MoviesListApi(MoviesApiMixin, BaseListView):
 
 class MoviesDetailApi(MoviesApiMixin, BaseDetailView):
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        queryset = self.get_queryset()
-        context = queryset.get(id=self.kwargs['pk'])
-        return context
+    def get_context_data(self, **kwargs):
+        return self.object

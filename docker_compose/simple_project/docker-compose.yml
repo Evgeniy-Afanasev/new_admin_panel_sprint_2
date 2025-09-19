@@ -29,6 +29,7 @@ services:
     container_name: postgres
     volumes:
       - ./database_dump.sql:/docker-entrypoint-initdb.d/init.sql
+      - data:/var/lib/postgresql/data
     env_file:
       - ./.env
     restart: always
@@ -40,3 +41,4 @@ services:
 
 volumes:
   static:
+  data:
